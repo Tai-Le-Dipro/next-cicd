@@ -45,4 +45,5 @@ jobs:
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             cd next
+            npm run dev
             touch .env
