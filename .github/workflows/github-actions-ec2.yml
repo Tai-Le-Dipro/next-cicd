@@ -45,5 +45,5 @@ jobs:
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             cd next
-            npm run dev
             touch .env
+            npx pm2 restart all --name "next" || npx pm2 start npm --name "next" -- run dev
