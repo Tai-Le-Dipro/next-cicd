@@ -24,6 +24,25 @@ jobs:
       - name: Run build task
         run: npm run build
 
+      - name: Executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          script_stop: true
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+
+      - name: Remove old folder and create new folder
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            rm -rf home/ubuntu/next
+            mkdir home/ubuntu/next
+
       - name: Copy build to server
         uses: GarryOne/ssh-deploy@master
         env:
