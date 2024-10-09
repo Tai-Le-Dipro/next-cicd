@@ -11,8 +11,8 @@ pipeline {
             agent any
             steps {
             //   withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    sh 'docker build -t 461999/next-cicd:latest .'
-                    sh 'docker push 461999/next-cicd:latest .'
+                    sh 'sudo docker build -t 461999/next-cicd:latest .'
+                    sh 'sudo docker push 461999/next-cicd:latest .'
                 // }
             }
         }
