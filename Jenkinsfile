@@ -25,5 +25,11 @@ pipeline {
                 sh 'docker push 461999/next-cicd:latest'
             }
         }
+
+        stage("Deploy") {
+            steps {
+                sh 'docker run -d -p 3000:3000 461999/next-cicd:latest'
+            }
+        }
     }
 }
