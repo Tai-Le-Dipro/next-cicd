@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+   agent {
+        docker {
+            image 'docker:latest' // Sử dụng Docker agent
+            args '-v /var/run/docker.sock:/var/run/docker.sock' // Mount Docker socket
+        }
+    }
     stages {
         stage('Clone') {
             steps {
@@ -8,7 +13,6 @@ pipeline {
         }
 
         stage('Build') {
-            agent any
             steps {
             //   withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
                     sh 'docker build -t 461999/next-cicd:latest .'
