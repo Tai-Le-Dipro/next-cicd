@@ -1,3 +1,6 @@
+def COLORS = ['SUCCESS ✅': 'good', 'FAILURE ❌': 'danger', 'UNSTABLE': 'danger', 'ABORTED': 'danger']
+def ENV = 'dev'
+
 pipeline {
     agent any
     stages {
@@ -28,19 +31,19 @@ pipeline {
 
         stage("Deploy") {
             steps {
-                
-                // script {
-                //     def existingContainer = sh(script: 'docker ps -q --filter "ancestor=461999/next-cicd:latest"', returnStdout: true).trim()
-                //     if (existingContainer) {
-                //         sh "docker stop ${existingContainer}"
-                //         sh "docker rm ${existingContainer}"
-                //     }
-                // }
-
                 sh 'docker stop $(docker ps -a -q)'
                 sh 'docker rm $(docker ps -a -q)'
                 sh 'docker run -d -p 3000:3000 461999/next-cicd:latest'
             }
+        }
+    }
+    post {
+       always {
+            slackSend botUser: true, 
+                      channel: '#general', 
+                      color: currentBuild.currentResult == 'SUCCESS' ? 'good' : 'danger', 
+                      message: "`Build (${ENV})` - *${currentBuild.currentResult}*\n    Job ${JOB_NAME} build ${BUILD_NUMBER}\n    ${BUILD_URL}", 
+                      notifyCommitters: true
         }
     }
 }

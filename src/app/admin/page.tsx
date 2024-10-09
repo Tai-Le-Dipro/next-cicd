@@ -8,7 +8,7 @@ const page = () => {
         className="w-full max-w-[600px] p-10 bg-white rounded-lg shadow"
         aria-label="signup-form"
       >
-        <h2 className="mb-10 text-3xl font-bold text-center">Sign Up Form Tai LE</h2>
+        <h2 className="mb-10 text-3xl font-bold text-center">Sign Up Form</h2>
         <div className="flex flex-col items-start mb-5 gap-y-3">
           <label htmlFor="email" className="text-sm font-medium cursor-pointer">
             Email
