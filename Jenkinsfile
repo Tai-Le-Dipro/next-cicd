@@ -28,6 +28,17 @@ pipeline {
 
         stage("Deploy") {
             steps {
+                
+                // script {
+                //     def existingContainer = sh(script: 'docker ps -q --filter "ancestor=461999/next-cicd:latest"', returnStdout: true).trim()
+                //     if (existingContainer) {
+                //         sh "docker stop ${existingContainer}"
+                //         sh "docker rm ${existingContainer}"
+                //     }
+                // }
+
+                sh 'docker stop $(docker ps -a -q)'
+                sh 'docker rm $(docker ps -a -q)'
                 sh 'docker run -d -p 3000:3000 461999/next-cicd:latest'
             }
         }
